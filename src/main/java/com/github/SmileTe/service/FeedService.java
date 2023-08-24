@@ -14,6 +14,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import java.util.Collection;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class FeedService {
@@ -31,19 +35,26 @@ public class FeedService {
     public FeedDto create(CreateFeedDto createFeedDto){
         Feed feed = new Feed();
         feedMapper.create(feed, createFeedDto);
-//        Long category_id = createFeedDto.getCategoryDto().getId();
-//        Category category = categoryRepository.findById(category_id).orElseThrow(() -> new CategoryNotFoundExcepion(category_id));
-//        feed.setCategory(category);
+        Category category = categoryRepository.findById(createFeedDto.getCategory_id()).orElseThrow(() -> new CategoryNotFoundExcepion(createFeedDto.getCategory_id()));
+        feed.setCategory(category);
         return  feedMapper.toDto(feedRepository.save(feed));
     }
 
-    public void delete(Long id){
+    public boolean delete(Long id) {
         Feed feed = feedRepository.findById(id).orElseThrow(() -> new FeedNotFoundExcepion(id));
-
-        feedRepository.delete(feed);
-        feedMapper.toDto(feed);//!!!!м.б. лишнее
-
+        try {
+            feedRepository.delete(feed);
+            //feedMapper.toDto(feed);//!!!!м.б. лишнее
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
-
+    public List<FeedDto> findFeeds(String name){
+     //   return feedRepository.findListByName(name);
+        List<Feed> feedList = feedRepository.findAllByName(name);
+        List<FeedDto> feedDTOList = feedMapper.listFeedToFeedDTO(feedList);
+        return feedDTOList;
+    }
 }

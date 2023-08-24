@@ -14,8 +14,8 @@ public class Category {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category",
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
+           // cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Feed> feeds;
 
     public Long getId() {

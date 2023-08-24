@@ -14,6 +14,7 @@
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="5f37246d-8171-493b-98ee-3eacf71dedb5">
       <console name="Connection" type="STANDARD" schema="public" session="Main"><![CDATA[select feeds.* from feeds]]></console>
+      <console name="NewsBase" type="STANDARD" schema="public" session="Main"><![CDATA[select feeds.* from feeds]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -21,6 +22,18 @@
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="5f37246d-8171-493b-98ee-3eacf71dedb5" dataset="public.feeds" active-filter-id="EMPTY_FILTER">
+      <filter id="dde5cddc-fa59-4637-abc3-12408a837ff5" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="5f37246d-8171-493b-98ee-3eacf71dedb5" dataset="public.categories" active-filter-id="EMPTY_FILTER">
+      <filter id="12003447-8998-401a-bb18-d179e6124b1d" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />

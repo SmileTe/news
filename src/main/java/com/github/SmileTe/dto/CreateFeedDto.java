@@ -3,6 +3,7 @@ package com.github.SmileTe.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
@@ -21,37 +22,10 @@ public class CreateFeedDto {
     @NotBlank(message = "Содержание не может быть пустым")
     @Size(min = 3)
     private String content;
-    //@NotBlank(message = "Дата обязательна")
+    @NotBlank(message = "Дата обязательна")
     private String data_publication;
-    //@NotBlank(message = "Надо выбрать категорию")
-    //@JsonProperty("category")
-    //private CategoryDto categoryDto;
-
-    //@JsonProperty("category")
-    private CreateCategoryDto categoryDto;
-
-//    public static class CreateCategoryDto {
-//        //private Long id;
-//        private String name;
-//
-//
-//        public String getName() {
-//            return name;
-//        }
-//
-//        public void setName(String name) {
-//            this.name = name;
-//        }
-
-//        public Long getId() {
-//            return id;
-//        }
-//
-//        public void setId(Long id) {
-//            this.id = id;
-//        }
-//    }
-
+    @NotNull(message = "Надо указать категорию")
+    private long category_id;
 
     public String getName() {
         return name;
@@ -73,11 +47,11 @@ public class CreateFeedDto {
         this.data_publication = data_publication;
     }
 
-    public CreateCategoryDto getCategoryDto() {
-        return categoryDto;
+    public long getCategory_id() {
+        return category_id;
     }
 
-    public void setCategoryDto(CreateCategoryDto categoryDto) {
-        this.categoryDto = categoryDto;
+    public void setCategory_id(long category_id) {
+        this.category_id = category_id;
     }
 }
