@@ -3,6 +3,7 @@ package com.github.SmileTe.controller;
 import com.github.SmileTe.dto.CreateFeedDto;
 import com.github.SmileTe.dto.FeedDto;
 import com.github.SmileTe.dto.UpdateFeedDto;
+import com.github.SmileTe.entity.Category;
 import com.github.SmileTe.service.FeedService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -75,11 +76,13 @@ public class FeedController {
 
     public ResponseEntity<Iterable<FeedDto>> findFeeds(
             //@Parameter(description = "", example = "пример заполнение:ВАська")
-            @RequestParam(required = false, name = "nameFeed") String nameFeed
+            @RequestParam( name = "nameFeed", required = false, defaultValue =  "") String nameFeed,
+            @RequestParam( name = "category", required = false, defaultValue = "")String categoryFeed,
+            @RequestParam( name = "content", required = false, defaultValue = "") String content
            // @RequestParam(required = false, name = "breed") String breed
     ) {
        // if (nameFeed != null && !nameFeed.isBlank()) {
-            return ResponseEntity.ok(feedService.findFeeds(nameFeed));
+            return ResponseEntity.ok(feedService.findFeeds(nameFeed, categoryFeed,content));
        // }
 //        if (breed != null && !breed.isBlank()) {
 //            return ResponseEntity.ok(catService.findCatByBreed(breed));
