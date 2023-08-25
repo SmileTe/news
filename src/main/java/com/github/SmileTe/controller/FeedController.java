@@ -66,6 +66,13 @@ public class FeedController {
     }
 
     @GetMapping
+    @Operation(summary = "Получить существующую новость",
+            responses = {@ApiResponse(responseCode = "200", description = "Created"),
+                    @ApiResponse(responseCode = "404", description = "Not Found"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request")
+            },
+            tags = "Feeds")
+
     public ResponseEntity<Iterable<FeedDto>> findFeeds(
             //@Parameter(description = "", example = "пример заполнение:ВАська")
             @RequestParam(required = false, name = "nameFeed") String nameFeed

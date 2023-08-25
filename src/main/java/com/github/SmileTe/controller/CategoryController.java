@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +20,13 @@ public class CategoryController {
     private final CategoryService categoryService;
 
 //@PostMapping
-    @Operation(summary = "...", description = "...",
-                responses = {
-                        @ApiResponse(responseCode = "200", description = "..."),
-                        @ApiResponse(responseCode = "404", description = "..."),
-                        @ApiResponse(responseCode = "400", description = "...")
-    })
+@Operation(summary = "Изменить существующую категорию",
+        responses = {@ApiResponse(responseCode = "200", description = "Created"),
+                @ApiResponse(responseCode = "404", description = "Not Found"),
+                @ApiResponse(responseCode = "400", description = "Bad Request")
+
+        },
+        tags = "Categories")
     @PatchMapping("{id}")
     public CategoryDto patch(@PathVariable("id") Long id,
                                  @RequestBody @Valid UpdateCategoryDto updateCategoryDto) {
@@ -33,14 +35,48 @@ public class CategoryController {
 
 
     @PostMapping
+    @Operation(summary = "Создать новую категорию",
+            responses = {@ApiResponse(responseCode = "200", description = "Created"),
+                    @ApiResponse(responseCode = "404", description = "Not Found"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request")
+            },
+            tags = "Categories")
+
     public CategoryDto create(@RequestBody @Valid CreateCategoryDto createCategoryDto) {
         return categoryService.create(createCategoryDto);
     }
 
     @DeleteMapping("{id}")
+    @Operation(summary = "Удалить существующую категорию",
+            responses = {@ApiResponse(responseCode = "200", description = "Created"),
+                    @ApiResponse(responseCode = "404", description = "Not Found"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request")
+            },
+            tags = "Categories")
+
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-        categoryService.delete(id);
-        return ResponseEntity.noContent().build();
+        boolean result = categoryService.delete(id);
+        if (result) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
+
+
+    @GetMapping
+    @Operation(summary = "Получить существующую категорию",
+            responses = {@ApiResponse(responseCode = "200", description = "Created"),
+                    @ApiResponse(responseCode = "404", description = "Not Found"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request")
+            },
+            tags = "Categories")
+    public ResponseEntity<Iterable<CategoryDto>> findCategories(
+            @RequestParam(required = false, name = "nameCategory") String nameCategory
+    ) {
+        return ResponseEntity.ok(categoryService.findCategories(nameCategory));
+    }
+
+
 
 }

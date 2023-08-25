@@ -14,7 +14,7 @@
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="5f37246d-8171-493b-98ee-3eacf71dedb5">
       <console name="Connection" type="STANDARD" schema="public" session="Main"><![CDATA[select feeds.* from feeds]]></console>
-      <console name="NewsBase" type="STANDARD" schema="public" session="Main"><![CDATA[select feeds.* from feeds]]></console>
+      <console name="NewsBase" type="STANDARD" schema="public" session="Main"><![CDATA[select categories.* from categories]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">

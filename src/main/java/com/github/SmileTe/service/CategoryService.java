@@ -10,6 +10,7 @@ import com.github.SmileTe.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Locale;
 
 @Service
@@ -30,12 +31,23 @@ public class CategoryService {
         return  categoryMapper.toDto(categoryRepository.save(category));
     }
 
-    public void delete(Long id){
+    public boolean  delete(Long id){
         Category category = categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundExcepion(id));
-
+        try {
         categoryRepository.delete(category);
-        categoryMapper.toDto(category);//!!!!м.б. лишнее
+        //categoryMapper.toDto(category);//!!!!м.б. лишнее
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
 
+    }
+
+    public List<CategoryDto> findCategories(String name){
+
+        List<Category> categoryList = categoryRepository.findAllByName(name);
+        List<CategoryDto> categoryDTOList = categoryMapper.listCategoryToCategoryDTO(categoryList);
+        return categoryDTOList;
     }
 
 }
