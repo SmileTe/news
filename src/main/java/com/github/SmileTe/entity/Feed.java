@@ -28,8 +28,9 @@ public class Feed {
     private LocalDateTime dataPublication;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
+
     private Category category;
 
     public Long getId() {

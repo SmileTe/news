@@ -15,6 +15,8 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.expression.Expression;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -64,6 +66,13 @@ public class FeedService {
         //   return feedRepository.findListByName(name);
         List<Feed> feedList = findFeedsByNameCriteryContent(name, category, content);
         List<FeedDto> feedDTOList = feedMapper.listFeedToFeedDTO(feedList);
+        return feedDTOList;
+    }
+
+    public List<FeedDto> listFeeds(Integer offset, Integer limit) {
+
+        Page<Feed>  feedList= feedRepository.findAll(PageRequest.of(offset, limit));
+        List<FeedDto> feedDTOList = feedMapper.listFeedToFeedDTO(feedList.toList());
         return feedDTOList;
     }
 

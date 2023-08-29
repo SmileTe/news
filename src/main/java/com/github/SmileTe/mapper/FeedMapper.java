@@ -23,6 +23,7 @@ public interface FeedMapper {
     List<FeedDto> listFeedToFeedDTO(List<Feed> feed);
 
     @Mapping(source = "dataPublication",target = "data_publication", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(source = "category",target = "category")
 
     FeedDto toDto(Feed feed);
 }

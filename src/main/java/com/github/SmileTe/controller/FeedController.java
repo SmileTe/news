@@ -66,31 +66,37 @@ public class FeedController {
         }
     }
 
-    @GetMapping
+    @GetMapping("{nameFeed}/{category}/{content}")
     @Operation(summary = "Получить существующую новость",
-            responses = {@ApiResponse(responseCode = "200", description = "Created"),
+            responses = {@ApiResponse(responseCode = "200", description = "Done"),
                     @ApiResponse(responseCode = "404", description = "Not Found"),
                     @ApiResponse(responseCode = "400", description = "Bad Request")
             },
             tags = "Feeds")
 
     public ResponseEntity<Iterable<FeedDto>> findFeeds(
-            //@Parameter(description = "", example = "пример заполнение:ВАська")
+
             @RequestParam( name = "nameFeed", required = false, defaultValue =  "") String nameFeed,
             @RequestParam( name = "category", required = false, defaultValue = "")String categoryFeed,
             @RequestParam( name = "content", required = false, defaultValue = "") String content
-           // @RequestParam(required = false, name = "breed") String breed
-    ) {
-       // if (nameFeed != null && !nameFeed.isBlank()) {
+            ) {
             return ResponseEntity.ok(feedService.findFeeds(nameFeed, categoryFeed,content));
-       // }
-//        if (breed != null && !breed.isBlank()) {
-//            return ResponseEntity.ok(catService.findCatByBreed(breed));
-//        }
-       // return ResponseEntity.ok();
-       // return  new
+            }
+
+    @GetMapping
+    @Operation(summary = "Получить список новостей",
+            responses = {@ApiResponse(responseCode = "200", description = "Done"),
+                    @ApiResponse(responseCode = "404", description = "Not Found"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request")
+            },
+            tags = "Feeds")
+
+    public ResponseEntity<Iterable<FeedDto>>  listFeeds(
+
+            @RequestParam(value = "offset", defaultValue = "0") Integer offset,
+            @RequestParam(value = "limit", defaultValue = "5") Integer limit
+    ) {
+        return ResponseEntity.ok(feedService.listFeeds(offset, limit));
     }
-
-
 
     }
