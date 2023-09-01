@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  postgres:
+    image: 'postgres:10'
+    container_name: 'java-postgres'
+    environment:
+      - 'POSTGRES_DB=NewsBase'
+      - 'POSTGRES_PASSWORD=271188'
+      - 'POSTGRES_USER=NewsUser'
+      - 'POSTGRES_HOST_AUTH_METHOD=trust'
+    volumes:
+       - ./postgres-data:/var/lib/postgresql/data
+
+  app:
+    build: ./
+    container_name: 'java-app'
+    ports:
+      - 8080:8080

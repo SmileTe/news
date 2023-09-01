@@ -18,3 +18,4 @@ create table if not exists feeds
      category_id BIGINT NOT NULL REFERENCES categories (id)
 --     category BIGINT NOT NULL REFERENCES categories (id)
 );
+
